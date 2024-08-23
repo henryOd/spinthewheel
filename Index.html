@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune's Wheel: Will You Dare to Spin?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff4500;
+            margin-bottom: 20px;
+        }
+        .story {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        #wheel {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #000;
+            border-radius: 50%;
+            position: relative;
+            margin: 20px auto;
+            background: conic-gradient(
+                #00aaff 0deg 45deg, 
+                #ff6600 45deg 90deg, 
+                #ffaa00 90deg 135deg, 
+                #00ff66 135deg 180deg, 
+                #6600ff 180deg 225deg, 
+                #ff00aa 225deg 270deg, 
+                #00ffaa 270deg 315deg, 
+                #ff0066 315deg 360deg
+            );
+            transition: transform 5s ease-out;
+        }
+        #wheel:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff5733;
+        }
+        #result {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will You Dare to Spin? If there is a wheel that can land on 8 different spots</h1>
+    <div class="story">
+ <h2>
+    <ul>
+
+        <li>
+            1. $500k
+            2. $1m
+            3. $5m
+            4. $50m
+            5. $100m
+            6. $1b
+            7. $10b
+            8. Death
+
+        </li>
+    </ul>
+ 
+</h2>
+
+
+
+Would you spin it?
+    </div>
+
+    <div id="wheel"></div>
+    <button onclick="spinWheel()">Spin</button>
+    <div id="result"></div>
+
+    <script>
+        function spinWheel() {
+            const outcomes = [
+                "$500k",
+                "$1m",
+                "$5m",
+                "$50m",
+                "$100m",
+                "$1b",
+                "$10b",
+                "Death"
+            ];
+
+            // Calculate a random spin degree between 360 and 3600 (10 full spins)
+            const spinDegree = Math.floor(Math.random() * 3600) + 360;
+
+            // Apply the spin animation to the wheel
+            const wheel = document.getElementById('wheel');
+            wheel.style.transform = `rotate(${spinDegree}deg)`;
+
+            // Determine the outcome after the spin ends
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * outcomes.length);
+                const result = outcomes[randomIndex];
+
+                document.getElementById('result').textContent = result;
+
+                if (result === "Death") {
+                    document.body.style.backgroundColor = "#ff0000";
+                    document.getElementById('result').style.color = "#fff";
+                } else {
+                    document.body.style.backgroundColor = "#fff";
+                    document.getElementById('result').style.color = "#000";
+                }
+            }, 5000); // 5 seconds matches the CSS transition duration
+        }
+    </script>
+
+</body>
+</html>
